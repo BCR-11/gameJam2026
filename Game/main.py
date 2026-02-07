@@ -3,6 +3,23 @@ from pygame.math import Vector2
 
 pygame.init()
 
+class SNAKE:
+    def __init__(self):
+        self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
+        self.direction = Vector2(1, 0) #Right direction
+    
+    def draw_snake(self):
+        for block in self.body:
+            x_pos, y_pos = int(block.x * cell_size), int(block.y * cell_size)
+            snake_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
+            pygame.draw.rect(screen, ('#008a4c'), snake_rect)
+
+    def snake_movement (self):
+        body_copy = self.body[:-1]
+        body_copy.insert(0, body_copy[0] + self.direction)
+        self.body = body_copy[:]
+
+
 #FRUITS
 class FRUIT:
     def __init__(self):
@@ -30,7 +47,9 @@ speed = 8
 
 #Characters
 snake_surf = pygame.transform.rotozoom(pygame.image.load('sprites/snake_headUP.png'), 0, 2)
-snake_rect = snake_surf.get_rect(center = (x_pos, 360))
+snakes_rect = snake_surf.get_rect(center = (x_pos, 360))
+snake = SNAKE()
+
 
 fruit = FRUIT()
 
@@ -40,6 +59,9 @@ pixel_font = pygame.font.Font('font/Minecraft.ttf', 80) # Directory + size
 text = pixel_font.render('Game Over', False, (255, 255, 230))
 text_rect = text.get_rect(center = (cell_number *cell_size/2, cell_number*cell_size/2))
 
+SCREEN_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(SCREEN_UPDATE, 150)
+
 
 running = True
 while running:
@@ -47,11 +69,22 @@ while running:
     for event in pygame.event.get():    
         if event.type == pygame.QUIT:
             running = False
+        if event.type == SCREEN_UPDATE:
+            snake.snake_movement()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP or event.key == pygame.K_w:
+                snake.direction = Vector2(0, -1)
+            if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                snake.direction = Vector2(0, 1)
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                snake.direction = Vector2(1, 0)
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                snake.direction = Vector2(-1, 0)
+
     screen.fill((0, 0, 0)) #fill screen in black
     screen.blit(text, text_rect)
     fruit.draw_fruit()
-
-    keys = pygame.key.get_pressed()
+    snake.draw_snake()
     
         
     
