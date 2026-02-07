@@ -3,7 +3,9 @@ import sys
 pygame.init()
 
 #SCREEN 
-screen = pygame.display.set_mode((1080, 720))
+cell_size = 40
+cell_number = 20
+screen = pygame.display.set_mode((cell_size * cell_number, cell_size * cell_number))
 pygame.display.set_caption ("Snake")
 #FPS
 clock = pygame.time.Clock()
@@ -26,8 +28,6 @@ text = pixel_font.render('Game Over', False, (255, 255, 230))
 text_rect = text.get_rect(center = (540, 360))
 
 
-
-
 running = True
 while running:
     clock.tick(60)
@@ -38,7 +38,7 @@ while running:
     screen.blit(text, text_rect)
 
     keys = pygame.key.get_pressed()
-
+    
         
     
     
