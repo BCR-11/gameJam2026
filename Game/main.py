@@ -9,9 +9,9 @@ pygame.display.set_caption ("Snake")
 clock = pygame.time.Clock()
 
 #Positions:
-x_pos = 540
-y_pos = 360
-speed = 10
+x_pos = 500
+y_pos = 300
+speed = 100
 
 
 #Characters
