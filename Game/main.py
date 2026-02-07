@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 #Positions:
 x_pos = 540
 y_pos = 360
-speed = 10
+speed = 5
 
 
 #Characters
