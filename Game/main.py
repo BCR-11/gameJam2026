@@ -1,6 +1,19 @@
 import pygame
 import sys
+from pygame.math import Vector2
+
 pygame.init()
+
+#FRUITS
+class FRUIT:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.pos = Vector3(x, y)
+
+    def draw_fruit (self):
+        fruit_rect = pygame.Rect(self.pos.x, self.pos.y, cell_size, cell_size)
+        pygame.draw.rect(screen, ('#ff0048') , fruit_rect)
 
 #SCREEN 
 cell_size = 40
@@ -25,7 +38,7 @@ snake_rect = snake_surf.get_rect(center = (x_pos, 360))
 pixel_font = pygame.font.Font('font/Minecraft.ttf', 80) # Directory + size
 #Text
 text = pixel_font.render('Game Over', False, (255, 255, 230))
-text_rect = text.get_rect(center = (540, 360))
+text_rect = text.get_rect(center = (cell_number *cell_size/2, cell_number*cell_size/2))
 
 
 running = True
