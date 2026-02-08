@@ -1,6 +1,7 @@
 # GAMEJAM Spring 2026
 
 <br>
+
 ![preview](main.png)
 
 ## Game
