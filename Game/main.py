@@ -126,6 +126,9 @@ cell_size = 40
 cell_number = 22 # A 22 by 22 grid, 40 pixels each square.
 screen = pygame.display.set_mode((cell_size * cell_number, cell_size * cell_number))
 pygame.display.set_caption ("Snake")
+
+wall = pygame.transform.scale(pygame.image.load('sprites/Wall.png'), (40, 40))
+
 #FPS
 clock = pygame.time.Clock()
 
@@ -171,8 +174,13 @@ while running:
 
     screen.fill((0, 0, 0))
     main_game.draw_elements()
-    
-        
+    i = 0
+    while i < 22:
+        screen.blit(pygame.transform.rotozoom(wall, 270, 1), (0, i*cell_size))
+        screen.blit(pygame.transform.rotozoom(wall, 270, 1), (cell_size*(cell_number-1), i*cell_size))
+        screen.blit(wall, (i*cell_size, 0))
+        screen.blit(wall, (i*cell_size, cell_size*(cell_number-1)))
+        i += 1
     
     pygame.display.update()
     clock.tick(60)
