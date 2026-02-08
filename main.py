@@ -195,7 +195,7 @@ clock = pygame.time.Clock()
 main_game = MAIN()
 
 #FONT FOR WRITING (Pixelated)
-small_pixel_font = pygame.font.Font('font/Minecraft.ttf', 20) # Directory + size
+small_pixel_font = pygame.font.Font('font/Minecraft.ttf', 20)
 
 
 SCREEN_UPDATE = pygame.USEREVENT
