@@ -1,6 +1,7 @@
 import pygame, sys, random
 from pygame.math import Vector2
 
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
 
 class SNAKE:
@@ -18,6 +19,8 @@ class SNAKE:
         self.snake_tailRIGHT = pygame.transform.scale(pygame.image.load('sprites/snake_tailRIGHT.png'), (40, 40))
         self.snake_tailLEFT = pygame.transform.scale(pygame.image.load('sprites/snake_tailLEFT.png'), (40, 40))
         self.snake_body = pygame.transform.scale(pygame.image.load('sprites/snake_body.png'), (40, 40))
+
+        self.crunch_sound = pygame.mixer.Sound('sound/crunch.wav')
 
     def draw_snake(self):
         self.update_head_graphics()
@@ -71,6 +74,11 @@ class SNAKE:
     def add_block(self):
         self.new_block = True
 
+    def play_crunch(self):
+        self.crunch_sound.play()
+    
+    def reset(self):
+        self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
 
 class FRUIT:
     def __init__(self):
@@ -109,6 +117,11 @@ class MAIN:
         if self.fruit.pos ==  self.snake.body[0]:
             self.fruit.randomized()
             self.snake.add_block()
+            self.snake.play_crunch()
+
+        for block in self.snake.body[1:]:
+            if block == self.fruit.pos:
+                self.fruit.randomized()
     
     def check_fail(self):
         if not 1 <= self.snake.body[0].x < cell_number-1:
@@ -131,6 +144,7 @@ class MAIN:
         screen.blit(pygame.transform.scale(apple, (20, 20)), apple_rect)
 
     def game_over(self):
+        self.snake.reset()
         screen.blit(text, text_rect)
 
 #SCREEN 
