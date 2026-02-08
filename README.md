@@ -1,6 +1,7 @@
 # GAMEJAM Spring 2026
 
 <br>
+![preview](main.png)
 
 ## Game
 Classic game of snake. It has two types of fruits, a normal red apple, worth 1 point, and a golden apple, worth 3 points.
