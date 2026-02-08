@@ -32,3 +32,7 @@ PyGame Tutorial by Clear Code "The ultimate introduction to Pygame": https://www
 Snake Tutorial by Clear Code "Learning pygame by creating Snake [python tutorial]": https://www.youtube.com/watch?v=QFvqStqPCRU <br>
 ### Sprites:
 Snake sprites by Cosme "Snake Game Assets": https://cosme.itch.io/snake
+
+### Sounds
+Eating sound by Clear Code "crunch.wav": https://github.com/clear-code-projects/Snake/blob/main/Sound/crunch.wav <br>
+Background Music by Clement Panchout – www.clementpanchout.com "Clement Panchout _ LJ_Tel_HipHop.wav": https://clement-panchout.itch.io/yet-another-free-music-pack 
