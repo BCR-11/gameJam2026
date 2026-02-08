@@ -10,6 +10,9 @@ full_path = os.path.join(current_directory, relative_path)
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
 
+bgm  = pygame.mixer.Sound('sound/Clement Panchout _ LJ_Tel_HipHop.wav')
+bgm.set_volume(0.1)
+bgm.play(loops=-1)
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
