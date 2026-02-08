@@ -9,12 +9,34 @@ class SNAKE:
         self.direction = Vector2(-1, 0) #Left direction
         self.new_block = False
 
+        self.snake_headUP = pygame.transform.scale(pygame.image.load('sprites/snake_headUP.png'), (40, 40))
+        self.snake_headDOWN = pygame.transform.scale(pygame.image.load('sprites/snake_headDOWN.png'), (40, 40))
+        self.snake_headRIGHT = pygame.transform.scale(pygame.image.load('sprites/snake_headRIGHT.png'), (40, 40))
+        self.snake_headLEFT = pygame.transform.scale(pygame.image.load('sprites/snake_headLEFT.png'), (40, 40))
+        self.snakes_rect = self.snake_headUP.get_rect(center = (x_pos, 360))
+        self.snake_body = pygame.transform.scale(pygame.image.load('sprites/snake_body.png'), (40, 40))
+
     def draw_snake(self):
-        for block in self.body:
+        self.update_head_graphics()
+        
+        for index, block in enumerate(self.body):
             x_pos, y_pos = int(block.x * cell_size), int(block.y * cell_size)
             snake_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
-            pygame.draw.rect(screen, ('#008a4c'), snake_rect)
+            if index == 0:
+                screen.blit(self.snake_head, snake_rect)
+            else:
+                screen.blit(self.snake_body, snake_rect)
 
+    def update_head_graphics(self):
+        head_relative = self.body[1] - self.body[0]
+        if head_relative == Vector2(1, 0):
+            self.snake_head = self.snake_headLEFT
+        if head_relative == Vector2(-1, 0):
+            self.snake_head = self.snake_headRIGHT
+        if head_relative == Vector2(0, 1):
+            self.snake_head = self.snake_headUP
+        if head_relative == Vector2(0, -1):
+            self.snake_head = self.snake_headDOWN
     def snake_movement (self):
         if self.new_block == True:
             body_copy = self.body[:]
@@ -38,12 +60,14 @@ class FRUIT:
 
     def draw_fruit (self):
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)
-        pygame.draw.rect(screen, ('#ff0048') , fruit_rect)
+        screen.blit(apple, fruit_rect) 
     
     def randomized(self):
-        self.x = random.randint(0, cell_number - 1)
-        self.y = random.randint(0, cell_number - 1)
+        self.x = random.randint(1, cell_number - 2)
+        self.y = random.randint(1, cell_number - 2)
         self.pos = Vector2(self.x, self.y)
+
+apple = pygame.transform.scale(pygame.image.load('sprites/Red_apple.png'), (40, 40))
 
 class MAIN:
     def __init__(self):
@@ -90,10 +114,6 @@ x_pos = 540
 y_pos = 360
 speed = 8
 
-
-#Characters
-snake_surf = pygame.transform.rotozoom(pygame.image.load('sprites/snake_headUP.png'), 0, 2)
-snakes_rect = snake_surf.get_rect(center = (x_pos, 360))
 
 main_game = MAIN()
 
