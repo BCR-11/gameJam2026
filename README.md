@@ -3,6 +3,7 @@
 <br>
 
 ## Game
+Classic game of snake. It has two types of fruits, a normal red apple, worth 1 point, and a golden apple, worth 3 points.
 
 ### Dependecies
 `pygame`
@@ -20,11 +21,13 @@
 
 
 ## Other info
+We were a group of 4, but half of them didn't respond, so the last two decided to work on our own, so I did this by myself.
 I know it's a simple game and that I followed a lot the tutorial, so I don't expect much, most of the credit really is to the tutorial.
 Some ideas for improvement I have are:
-1. 
-2. 
-3. 
+1. Multiplayer <br>
+2. Different modes (e.g. easy = snakes moves slower, hard = snake moves faster)<br>
+3. Better UI (Be able to change the screen size, a settings menu, etc.) <br>
+4. 
 
 ## Credits
 ### Code:
