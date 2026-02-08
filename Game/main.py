@@ -6,24 +6,32 @@ pygame.init()
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
-        self.direction = Vector2(-1, 0) #Left direction
+        self.direction = Vector2(1, 0) #RIGHT direction
         self.new_block = False
 
         self.snake_headUP = pygame.transform.scale(pygame.image.load('sprites/snake_headUP.png'), (40, 40))
         self.snake_headDOWN = pygame.transform.scale(pygame.image.load('sprites/snake_headDOWN.png'), (40, 40))
         self.snake_headRIGHT = pygame.transform.scale(pygame.image.load('sprites/snake_headRIGHT.png'), (40, 40))
         self.snake_headLEFT = pygame.transform.scale(pygame.image.load('sprites/snake_headLEFT.png'), (40, 40))
-        self.snakes_rect = self.snake_headUP.get_rect(center = (x_pos, 360))
+        self.snake_tailUP = pygame.transform.scale(pygame.image.load('sprites/snake_tailUP.png'), (40, 40))
+        self.snake_tailDOWN = pygame.transform.scale(pygame.image.load('sprites/snake_tailDOWN.png'), (40, 40))
+        self.snake_tailRIGHT = pygame.transform.scale(pygame.image.load('sprites/snake_tailRIGHT.png'), (40, 40))
+        self.snake_tailLEFT = pygame.transform.scale(pygame.image.load('sprites/snake_tailLEFT.png'), (40, 40))
         self.snake_body = pygame.transform.scale(pygame.image.load('sprites/snake_body.png'), (40, 40))
 
     def draw_snake(self):
         self.update_head_graphics()
+        self.update_tail_graphics()
         
         for index, block in enumerate(self.body):
             x_pos, y_pos = int(block.x * cell_size), int(block.y * cell_size)
             snake_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
             if index == 0:
                 screen.blit(self.snake_head, snake_rect)
+            
+            elif index == len(self.body) - 1:
+                screen.blit(self.snake_tail, snake_rect)
+            
             else:
                 screen.blit(self.snake_body, snake_rect)
 
@@ -37,6 +45,18 @@ class SNAKE:
             self.snake_head = self.snake_headUP
         if head_relative == Vector2(0, -1):
             self.snake_head = self.snake_headDOWN
+
+    def update_tail_graphics(self):
+        tail_relative = self.body[-1] - self.body[-2]
+        if tail_relative == Vector2(1, 0):
+            self.snake_tail = self.snake_tailLEFT
+        if tail_relative == Vector2(-1, 0):
+            self.snake_tail = self.snake_tailRIGHT
+        if tail_relative == Vector2(0, 1):
+            self.snake_tail = self.snake_tailUP
+        if tail_relative == Vector2(0, -1):
+            self.snake_tail = self.snake_tailDOWN 
+
     def snake_movement (self):
         if self.new_block == True:
             body_copy = self.body[:]
