@@ -21,7 +21,7 @@ Classic game of snake. It has two types of fruits, a normal red apple, worth 1 p
 
 
 ## Other info
-We were a group of 4, but half of them didn't respond, so the last two decided to work on our own, so I did this by myself.
+We were a group of 4, but half of them didn't respond, so we, the last two decided, to work on our own, so I did this by myself.
 I know it's a simple game and that I followed a lot the tutorial, so I don't expect much, most of the credit really is to the tutorial.
 Some ideas for improvement I have are:
 1. Multiplayer <br>
