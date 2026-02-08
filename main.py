@@ -18,6 +18,7 @@ class SNAKE:
         self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
         self.direction = Vector2(0, 0)
         self.new_block = False
+        self.new_block2 = False
 
         self.snake_headUP = pygame.transform.scale(pygame.image.load('sprites/snake_headUP.png'), (40, 40))
         self.snake_headDOWN = pygame.transform.scale(pygame.image.load('sprites/snake_headDOWN.png'), (40, 40))
@@ -75,6 +76,12 @@ class SNAKE:
             body_copy.insert(0, body_copy[0] + self.direction)
             self.body = body_copy[:]
             self.new_block = False
+        elif self.new_block2 == True:
+            body_copy = self.body[:]
+            body_copy.insert(0, body_copy[0] + self.direction)
+            self.body = body_copy[:]
+            self.new_block2 = False
+            self.new_block = True
         else:
             body_copy = self.body[:-1]
             body_copy.insert(0, body_copy[0] + self.direction)
@@ -82,6 +89,9 @@ class SNAKE:
 
     def add_block(self):
         self.new_block = True
+
+    def add_block2(self):
+        self.new_block2 = True
 
     def play_crunch(self):
         self.crunch_sound.play()
@@ -131,9 +141,15 @@ class MAIN:
 
     def check_collision(self):
         if self.fruit.pos ==  self.snake.body[0]:
-            self.fruit.randomized()
-            self.snake.add_block()
-            self.snake.play_crunch()
+            if self.fruit.i <= 9:
+                self.fruit.randomized()
+                self.snake.add_block()
+                self.snake.play_crunch()
+            else:
+                self.fruit.randomized()
+                self.snake.add_block()
+                self.snake.play_crunch()
+                self.snake.add_block2()
 
         for block in self.snake.body[1:]:
             if block == self.fruit.pos:
