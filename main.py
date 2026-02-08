@@ -95,17 +95,24 @@ class FRUIT:
         self.x = random.randint(1, cell_number - 2)
         self.y = random.randint(1, cell_number - 2)
         self.pos = Vector2(self.x, self.y)
+        self.i = random.randint(1, 10)
 
     def draw_fruit (self):
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)
-        screen.blit(apple, fruit_rect) 
+        if self.i <= 9:
+            screen.blit(apple, fruit_rect)
+        else:
+            screen.blit(golden_apple, fruit_rect)
     
     def randomized(self):
         self.x = random.randint(1, cell_number - 2)
         self.y = random.randint(1, cell_number - 2)
         self.pos = Vector2(self.x, self.y)
+        self.i = random.randint(1, 10)
+
 
 apple = pygame.transform.scale(pygame.image.load('sprites/Red_apple.png'), (40, 40))
+golden_apple = pygame.transform.scale(pygame.image.load('sprites/Golden_apple.png'), (40, 40))
 
 class MAIN:
     def __init__(self):
