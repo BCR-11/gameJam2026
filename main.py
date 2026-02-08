@@ -1,5 +1,11 @@
 import pygame, sys, random
 from pygame.math import Vector2
+import os
+
+relative_path = os.path.join("assets", "file.txt")
+current_directory = os.path.dirname(os.path.abspath(__file__))
+full_path = os.path.join(current_directory, relative_path)
+
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
