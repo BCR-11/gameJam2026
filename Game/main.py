@@ -7,7 +7,7 @@ pygame.init()
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
-        self.direction = Vector2(1, 0) #RIGHT direction
+        self.direction = Vector2(0, 0)
         self.new_block = False
 
         self.snake_headUP = pygame.transform.scale(pygame.image.load('sprites/snake_headUP.png'), (40, 40))
@@ -42,22 +42,22 @@ class SNAKE:
         head_relative = self.body[1] - self.body[0]
         if head_relative == Vector2(1, 0):
             self.snake_head = self.snake_headLEFT
-        if head_relative == Vector2(-1, 0):
+        elif head_relative == Vector2(-1, 0):
             self.snake_head = self.snake_headRIGHT
         if head_relative == Vector2(0, 1):
             self.snake_head = self.snake_headUP
-        if head_relative == Vector2(0, -1):
+        elif head_relative == Vector2(0, -1):
             self.snake_head = self.snake_headDOWN
 
     def update_tail_graphics(self):
         tail_relative = self.body[-1] - self.body[-2]
         if tail_relative == Vector2(1, 0):
             self.snake_tail = self.snake_tailLEFT
-        if tail_relative == Vector2(-1, 0):
+        elif tail_relative == Vector2(-1, 0):
             self.snake_tail = self.snake_tailRIGHT
         if tail_relative == Vector2(0, 1):
             self.snake_tail = self.snake_tailUP
-        if tail_relative == Vector2(0, -1):
+        elif tail_relative == Vector2(0, -1):
             self.snake_tail = self.snake_tailDOWN 
 
     def snake_movement (self):
@@ -79,6 +79,7 @@ class SNAKE:
     
     def reset(self):
         self.body = [Vector2(10, 10), Vector2(9, 10), Vector2(8, 10)]
+        self.direction = Vector2(0, 0)
 
 class FRUIT:
     def __init__(self):
@@ -111,7 +112,6 @@ class MAIN:
         self.fruit.draw_fruit()
         self.snake.draw_snake()
         self.draw_score()
-        self.check_fail()
 
     def check_collision(self):
         if self.fruit.pos ==  self.snake.body[0]:
@@ -138,14 +138,13 @@ class MAIN:
         score_x = int(cell_number*cell_size - 50)
         score_y = 70
         score_rect = score_text.get_rect (midright = (score_x, score_y))
-       #screen.blit(score_text, (cell_size*cell_number - 150, 60))
         screen.blit(score_text, score_rect)
         apple_rect = apple.get_rect(midright = (score_rect.left+11, score_rect.centery+6))
         screen.blit(pygame.transform.scale(apple, (20, 20)), apple_rect)
 
     def game_over(self):
         self.snake.reset()
-        screen.blit(text, text_rect)
+        
 
 #SCREEN 
 cell_size = 40
@@ -154,25 +153,18 @@ screen = pygame.display.set_mode((cell_size * cell_number, cell_size * cell_numb
 pygame.display.set_caption ("Snake")
 
 wall = pygame.transform.scale(pygame.image.load('sprites/Wall.png'), (40, 40))
+wall2 = pygame.transform.rotozoom(pygame.transform.scale(pygame.image.load('sprites/Wall.png'), (40, 40)), 270, 1)
+
 
 #FPS
 clock = pygame.time.Clock()
-
-#Positions:
-x_pos = 540
-y_pos = 360
-speed = 8
 
 
 main_game = MAIN()
 
 #FONT FOR WRITING (Pixelated)
-pixel_font = pygame.font.Font('font/Minecraft.ttf', 80) # Directory + size
 small_pixel_font = pygame.font.Font('font/Minecraft.ttf', 20) # Directory + size
 
-#Text
-text = pixel_font.render('Game Over', False, (255, 255, 230))
-text_rect = text.get_rect(center = (cell_number *cell_size/2, cell_number*cell_size/2))
 
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
@@ -204,8 +196,8 @@ while running:
     main_game.draw_elements()
     i = 0
     while i < 22:
-        screen.blit(pygame.transform.rotozoom(wall, 270, 1), (0, i*cell_size))
-        screen.blit(pygame.transform.rotozoom(wall, 270, 1), (cell_size*(cell_number-1), i*cell_size))
+        screen.blit(wall2, (0, i*cell_size))
+        screen.blit(wall2, (cell_size*(cell_number-1), i*cell_size))
         screen.blit(wall, (i*cell_size, 0))
         screen.blit(wall, (i*cell_size, cell_size*(cell_number-1)))
         i += 1
