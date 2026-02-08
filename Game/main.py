@@ -102,6 +102,8 @@ class MAIN:
     def draw_elements(self):
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+        self.draw_score()
+        self.check_fail()
 
     def check_collision(self):
         if self.fruit.pos ==  self.snake.body[0]:
@@ -117,6 +119,16 @@ class MAIN:
         for block in self.snake.body[1:]:
             if block == self.snake.body[0]:
                 self.game_over()
+
+    def draw_score(self):
+        score_text = small_pixel_font.render(f'Score: {len(self.snake.body)-3}', False, (255, 255, 230))
+        score_x = int(cell_number*cell_size - 50)
+        score_y = 70
+        score_rect = score_text.get_rect (midright = (score_x, score_y))
+       #screen.blit(score_text, (cell_size*cell_number - 150, 60))
+        screen.blit(score_text, score_rect)
+        apple_rect = apple.get_rect(midright = (score_rect.left+11, score_rect.centery+6))
+        screen.blit(pygame.transform.scale(apple, (20, 20)), apple_rect)
 
     def game_over(self):
         screen.blit(text, text_rect)
@@ -142,6 +154,8 @@ main_game = MAIN()
 
 #FONT FOR WRITING (Pixelated)
 pixel_font = pygame.font.Font('font/Minecraft.ttf', 80) # Directory + size
+small_pixel_font = pygame.font.Font('font/Minecraft.ttf', 20) # Directory + size
+
 #Text
 text = pixel_font.render('Game Over', False, (255, 255, 230))
 text_rect = text.get_rect(center = (cell_number *cell_size/2, cell_number*cell_size/2))
