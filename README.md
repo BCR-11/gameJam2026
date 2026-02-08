@@ -27,7 +27,7 @@ Some ideas for improvement I have are:
 1. Multiplayer <br>
 2. Different modes (e.g. easy = snakes moves slower, hard = snake moves faster)<br>
 3. Better UI (Be able to change the screen size, a settings menu, etc.) <br>
-4. 
+4. More fruits (e.g. a 2x speed fruit)
 
 ## Credits
 ### Code:
